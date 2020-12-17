@@ -142,10 +142,16 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
                 int id = taskList.get(position).getId();
                 if(isChecked) {
                     db.updateStatus(id, 1);
+                    taskList = db.getAllTasks();
+                    Collections.reverse(taskList);
                     //moveToEnd();
-                    //adapter.setTasks(taskList);
+                    adapter.setTasks(taskList);
                 } else {
                     db.updateStatus(id, 0);
+                    taskList = db.getAllTasks();
+                    Collections.reverse(taskList);
+                    //moveToEnd();
+                    adapter.setTasks(taskList);
                 }
             }
 

@@ -30,15 +30,15 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
     private List<TaskContent> mValues;
     private ClickListener mClickListener;
     private FragmentActivity activity;
-    SparseBooleanArray states = new SparseBooleanArray();
+    //SparseBooleanArray states = new SparseBooleanArray();
 
     public MyTaskRecyclerViewAdapter(List<TaskContent> items, ClickListener clickListener, FragmentActivity activity) {
         mValues = items;
         this.mClickListener = clickListener;
         this.activity = activity;
-        for (int i=0; i<mValues.size(); i++){
-            states.append(i, mValues.get(i).isCompleted());
-        }
+//        for (int i=0; i<mValues.size(); i++){
+//            states.append(i, mValues.get(i).isCompleted());
+//        }
     }
 
     @Override
@@ -57,32 +57,38 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
         holder.mDateView.setText(mValues.get(position).getDate());
         holder.mPriorityView.setText(mValues.get(position).getPriority());
         holder.cbSelect.setOnCheckedChangeListener(null);
-        holder.cbSelect.setChecked(states.get(position));
-        if(states.get(position)){
+        holder.cbSelect.setChecked(mValues.get(position).isCompleted());
+        if(mValues.get(position).isCompleted()){
             holder.mContentView.setTextColor(Color.GRAY);
             holder.mDateView.setTextColor(Color.GRAY);
             holder.mTimeView.setTextColor(Color.GRAY);
             holder.mPriorityView.setTextColor(Color.GRAY);
             holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }  else {
+            holder.mContentView.setTextColor(Color.BLACK);
+            holder.mDateView.setTextColor(Color.BLACK);
+            holder.mTimeView.setTextColor(Color.BLACK);
+            holder.mPriorityView.setTextColor(Color.BLACK);
+            holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
         holder.cbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                states.put(position, isChecked);
+                //states.put(position, isChecked);
                 holder.clickListener.onCheckboxCheckedChange(position, compoundButton, isChecked);
-                if(isChecked){
-                    holder.mContentView.setTextColor(Color.GRAY);
-                    holder.mDateView.setTextColor(Color.GRAY);
-                    holder.mTimeView.setTextColor(Color.GRAY);
-                    holder.mPriorityView.setTextColor(Color.GRAY);
-                    holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    holder.mDateView.setTextColor(Color.BLACK);
-                    holder.mTimeView.setTextColor(Color.BLACK);
-                    holder.mPriorityView.setTextColor(Color.BLACK);
-                    holder.mContentView.setTextColor(Color.BLACK);
-                    holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                }
+//                if(isChecked){
+//                    holder.mContentView.setTextColor(Color.GRAY);
+//                    holder.mDateView.setTextColor(Color.GRAY);
+//                    holder.mTimeView.setTextColor(Color.GRAY);
+//                    holder.mPriorityView.setTextColor(Color.GRAY);
+//                    holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                } else {
+//                    holder.mDateView.setTextColor(Color.BLACK);
+//                    holder.mTimeView.setTextColor(Color.BLACK);
+//                    holder.mPriorityView.setTextColor(Color.BLACK);
+//                    holder.mContentView.setTextColor(Color.BLACK);
+//                    holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+//                }
             }
         });
     }
