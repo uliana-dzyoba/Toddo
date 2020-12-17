@@ -34,6 +34,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     private EditText newTaskTime;
     private Spinner newTaskPriority;
     private ImageButton newTaskSaveButton;
+    private ImageButton newTaskCalendarButton;
     private DBHandler db;
     private Fragment fragment;
 
@@ -65,6 +66,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
         newTaskDate = getView().findViewById(R.id.newTaskDate);
         newTaskTime = getView().findViewById(R.id.newTaskTime);
         newTaskPriority = getView().findViewById(R.id.newTaskPriority);
+        newTaskCalendarButton = getView().findViewById(R.id.newTaskCalendarButton);
         newTaskSaveButton = getView().findViewById(R.id.newTaskButton);
 
 

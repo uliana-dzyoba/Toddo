@@ -59,6 +59,10 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
         holder.cbSelect.setOnCheckedChangeListener(null);
         holder.cbSelect.setChecked(states.get(position));
         if(states.get(position)){
+            holder.mContentView.setTextColor(Color.GRAY);
+            holder.mDateView.setTextColor(Color.GRAY);
+            holder.mTimeView.setTextColor(Color.GRAY);
+            holder.mPriorityView.setTextColor(Color.GRAY);
             holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         holder.cbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -68,8 +72,14 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
                 holder.clickListener.onCheckboxCheckedChange(position, compoundButton, isChecked);
                 if(isChecked){
                     holder.mContentView.setTextColor(Color.GRAY);
+                    holder.mDateView.setTextColor(Color.GRAY);
+                    holder.mTimeView.setTextColor(Color.GRAY);
+                    holder.mPriorityView.setTextColor(Color.GRAY);
                     holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
+                    holder.mDateView.setTextColor(Color.BLACK);
+                    holder.mTimeView.setTextColor(Color.BLACK);
+                    holder.mPriorityView.setTextColor(Color.BLACK);
                     holder.mContentView.setTextColor(Color.BLACK);
                     holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 }
@@ -159,5 +169,10 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
         void onCheckboxCheckedChange(int position, CompoundButton c, boolean isChecked);
 
         void onEditSwipe(int position);
+    }
+
+    public void updateAppearance(){
+        //ViewHolder holder =
+        //holder.mItem = mValues.get(position);
     }
 }

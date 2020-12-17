@@ -73,6 +73,8 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
         db.openDatabase();
         taskList = new ArrayList<>();
         taskList = db.getAllTasks();
+        Collections.reverse(taskList);
+        //moveToEnd();
         adapter = new MyTaskRecyclerViewAdapter(taskList, listener, getActivity());
         //Log.d("task", "task1: " + taskList.get(0).getTask_name());
     }
@@ -140,6 +142,8 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
                 int id = taskList.get(position).getId();
                 if(isChecked) {
                     db.updateStatus(id, 1);
+                    //moveToEnd();
+                    //adapter.setTasks(taskList);
                 } else {
                     db.updateStatus(id, 0);
                 }
@@ -176,7 +180,7 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
     public void handleDialogClose(DialogInterface dialog) {
         taskList = db.getAllTasks();
         //Log.d("task", "task1: " + taskList.get(1).getTask_name());
-        //Collections.reverse(taskList);
+        Collections.reverse(taskList);
         adapter.setTasks(taskList);
 //        adapter.notifyDataSetChanged();
         //Log.d("closed", "closing");
@@ -184,5 +188,15 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
 
     private Fragment getThis(){
         return this;
+    }
+
+    private void moveToEnd() {
+        for(int i=0; i<taskList.size(); i++) {
+            TaskContent task = taskList.get(i);
+            if(task.isCompleted()) {
+                taskList.remove(i);
+                taskList.add(task);
+            }
+        }
     }
 }
