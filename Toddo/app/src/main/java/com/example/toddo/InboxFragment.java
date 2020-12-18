@@ -2,8 +2,10 @@ package com.example.toddo;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -35,7 +37,7 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    public static final String TAG = "INBOX";
+    //public static final String TAG = "INBOX";
 
     private List<TaskContent> taskList;//
     private DBHandler db;
@@ -62,6 +64,7 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,7 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
         taskList = new ArrayList<>();
         taskList = db.getAllTasks();
         Collections.reverse(taskList);
-        //moveToEnd();
+        moveToEnd();
         adapter = new MyTaskRecyclerViewAdapter(taskList, listener, getActivity());
         //Log.d("task", "task1: " + taskList.get(0).getTask_name());
     }
@@ -136,6 +139,7 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
                 Log.d("long clicked", "onItemLongClick pos = " + position);
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onCheckboxCheckedChange(int position, CompoundButton c, boolean isChecked) {
                 Log.d("checked", "onCheck pos = " + position);
@@ -144,13 +148,13 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
                     db.updateStatus(id, 1);
                     taskList = db.getAllTasks();
                     Collections.reverse(taskList);
-                    //moveToEnd();
+                    moveToEnd();
                     adapter.setTasks(taskList);
                 } else {
                     db.updateStatus(id, 0);
                     taskList = db.getAllTasks();
                     Collections.reverse(taskList);
-                    //moveToEnd();
+                    moveToEnd();
                     adapter.setTasks(taskList);
                 }
             }
@@ -182,11 +186,13 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
         fragment.show(getChildFragmentManager(), AddNewTask.TAG);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void handleDialogClose(DialogInterface dialog) {
         taskList = db.getAllTasks();
         //Log.d("task", "task1: " + taskList.get(1).getTask_name());
         Collections.reverse(taskList);
+        moveToEnd();
         adapter.setTasks(taskList);
 //        adapter.notifyDataSetChanged();
         //Log.d("closed", "closing");
@@ -196,13 +202,12 @@ public class InboxFragment extends Fragment  implements DialogCloseListener {
         return this;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void moveToEnd() {
-        for(int i=0; i<taskList.size(); i++) {
-            TaskContent task = taskList.get(i);
-            if(task.isCompleted()) {
-                taskList.remove(i);
-                taskList.add(task);
-            }
-        }
+        taskList.sort((t1, t2) -> {
+            if(t1.isCompleted())
+                return 1;
+            return -1;
+        });
     }
 }

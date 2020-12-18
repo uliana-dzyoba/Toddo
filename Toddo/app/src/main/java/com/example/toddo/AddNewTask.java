@@ -1,6 +1,7 @@
 package com.example.toddo;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -25,6 +27,7 @@ import com.example.toddo.Utils.DBHandler;
 import com.example.toddo.tasks.TaskContent;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class AddNewTask extends BottomSheetDialogFragment {
@@ -134,13 +137,13 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 int pindex = newTaskPriority.getSelectedItemPosition();
                 String priority="";
                 switch(pindex) {
-                    case 1:
+                    case 0:
                         priority = "!";
                         break;
-                    case 2:
+                    case 1:
                         priority = "!!";
                         break;
-                    case 3:
+                    case 2:
                         priority = "!!!";
                         break;
                 }
@@ -158,6 +161,25 @@ public class AddNewTask extends BottomSheetDialogFragment {
                     db.insertTask(task);
                 }
                 dismiss();
+            }
+        });
+
+        newTaskCalendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentDate=Calendar.getInstance();
+                int year = mcurrentDate.get(Calendar.YEAR);
+                int month = mcurrentDate.get(Calendar.MONTH);
+                int day = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog mDatePicker=new DatePickerDialog(fragment.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
+                        //Log.e("Date Selected", "Month: " + selectedMonth + " Day: " + selectedDay + " Year: " + selectedYear);
+                        newTaskDate.setText(selectedYear + "/" + selectedMonth + "/" + selectedDay);
+                    }
+                },year, month, day);
+                mDatePicker.setTitle("Select date");
+                mDatePicker.show();
             }
         });
     }
