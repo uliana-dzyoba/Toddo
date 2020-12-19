@@ -13,10 +13,15 @@
         android:name="com.example.toddo.TaskFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#68F8F0B3"
         android:nestedScrollingEnabled="true"
+        android:paddingTop="8dp"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="0"
         tools:listitem="@layout/fragment_task" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

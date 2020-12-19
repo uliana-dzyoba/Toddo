@@ -54,7 +54,7 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
         //holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).getTask_name());
         holder.mTimeView.setText(mValues.get(position).getTime());
-        holder.mDateView.setText(mValues.get(position).getDate());
+        holder.mDateView.setText(DateParser.parseDate(mValues.get(position).getDate()));
         holder.mPriorityView.setText(mValues.get(position).getPriority());
         holder.cbSelect.setOnCheckedChangeListener(null);
         holder.cbSelect.setChecked(mValues.get(position).isCompleted());

@@ -175,6 +175,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 DatePickerDialog mDatePicker=new DatePickerDialog(fragment.getContext(), new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
                         //Log.e("Date Selected", "Month: " + selectedMonth + " Day: " + selectedDay + " Year: " + selectedYear);
+                        selectedMonth++;
+                        Log.d("month", String.valueOf(selectedMonth));
                         newTaskDate.setText(selectedYear + "/" + selectedMonth + "/" + selectedDay);
                     }
                 },year, month, day);
