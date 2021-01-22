@@ -103,8 +103,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.update(TABLE, cv, ID + "=?", new String[] {String.valueOf(id)});
     }
 
-    //public void updateTask //!!to do
-
     public void deleteTask(int id) {
         db.delete(TABLE, ID + "=?", new String[] {String.valueOf(id)});
     }

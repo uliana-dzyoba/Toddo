@@ -1,5 +1,6 @@
 package com.example.toddo;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,9 +67,9 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
             holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }  else {
             holder.mContentView.setTextColor(Color.BLACK);
-            holder.mDateView.setTextColor(Color.BLACK);
+            holder.mDateView.setTextColor(ContextCompat.getColor(getContext(), R.color.deep_orange));
             holder.mTimeView.setTextColor(Color.BLACK);
-            holder.mPriorityView.setTextColor(Color.BLACK);
+            holder.mPriorityView.setTextColor(ContextCompat.getColor(getContext(), R.color.amber_700));
             holder.mContentView.setPaintFlags(holder.mContentView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
         holder.cbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

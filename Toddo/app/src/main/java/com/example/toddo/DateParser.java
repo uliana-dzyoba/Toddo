@@ -40,7 +40,7 @@ public class DateParser {
                 formatted = "Today";
             } else if (tomorrow.getTime().compareTo(date)==0) {
                 formatted = "Tomorrow";
-            } else if(date.before(nextWeek.getTime())) {
+            } else if(date.before(nextWeek.getTime()) && date.after(today.getTime())) {
 //                Calendar week = Calendar.getInstance();
 //                week.setTime(date);
                 int dayWeek = dateC.get(Calendar.DAY_OF_WEEK);
